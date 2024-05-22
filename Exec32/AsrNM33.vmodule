@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CANoe_vmodule_1.1.xsd">
+  <Name>AsrNM33</Name>
+  <Version>4.3.20</Version>
+  <Application>CANoe</Application>
+  <ModuleType>NodeLayer-DLL</ModuleType>
+  <ModuleType>CAPL-DLL</ModuleType>
+  <SupportedArchitecture arch="Windows-x64 Windows-x86 Linux-x64" minAppVersion="14.0.0" />
+  <LibraryPath arch="Windows-x64" minAppVersion="14.0.0">CANoe_14_0/Exec64/AsrNM33.dll</LibraryPath>
+  <LibraryPath arch="Windows-x86" minAppVersion="14.0.0">CANoe_14_0/Exec32/AsrNM33.dll</LibraryPath>
+  <LibraryPath arch="Linux-x64" minAppVersion="14.0.0">CANoe_14_0/Modules_Linux-x64/libAsrNM33.so</LibraryPath>
+  <AdditionalFile arch="Windows-x64" minAppVersion="14.0.0">CANoe_14_0/Exec64/AsrNM33.ini</AdditionalFile>
+  <AdditionalFile arch="Windows-x86" minAppVersion="14.0.0">CANoe_14_0/Exec32/AsrNM33.ini</AdditionalFile>
+  <AdditionalFile arch="Linux-x64" minAppVersion="14.0.0">CANoe_14_0/Modules_Linux-x64/libAsrNM33.ini</AdditionalFile>
+  <CAPL-DLL minAppVersion="14.0.0">
+    <CDLL_VERSION>2</CDLL_VERSION>
+    <CallingConvention>CDECL</CallingConvention>
+    <CAN_MSG_VERSION>0</CAN_MSG_VERSION>
+    <ExportTable>
+      <Function>
+        <FunctionName>Nm_NetworkRequest</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Request network activity</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_NetworkRelease</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Network may sleep</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_PassiveStartUp</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Start sending NM messages</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_RequestBusSynch</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Request bus synchronization</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_RepeatMessageRequest</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Request new state RepeatMessage</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetNodeState</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Returns 1 if given node was detected</HintText>
+        <Parameter>
+          <Name>nodeId</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SetUserData</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Set the user data to send</HintText>
+        <Parameter>
+          <Name>userData</Name>
+          <Type rank="1">byte</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>count</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>void</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetUserData</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Retrieve user data received last</HintText>
+        <Parameter>
+          <Name>dataOut</Name>
+          <Type rank="1">byte</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>bufferLen</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetPduData</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Retrieve PDU received last</HintText>
+        <Parameter>
+          <Name>pduOut</Name>
+          <Type rank="1">byte</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>bufferLen</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetNodeIdentifier</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Retrieve NM id of last sender node</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_CheckRemoteSleepInd</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Returns 1 if remote sleep was detected</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SetControlBitVector</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Set the value of the "control bit vector"</HintText>
+        <Parameter>
+          <Name>controlBits</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>void</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetControlBitVector</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get the value of the "control bit vector"</HintText>
+        <Parameter>
+          <Name>controlBits</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByReference</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_ActivateBusLoadReduction</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Enable bus load reduction algorithm</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_DeactivateBusLoadReduction</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Disable bus load reduction algorithm</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_DisableCommunication</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Stop sending NM PDUs (only during NormalOperation)</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_EnableCommunication</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Continue sending NM PDUs</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetState</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Return the current NM state</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetRequestState</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Return the current NM request state</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_EnablePassiveMode</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Make this node a passive NM node (only during BusSleep)</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_DisablePassiveMode</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Stop being a passive NM node (only during BusSleep)</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_Transmit</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Transmit a spontaneous NM message</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SetCarWakeUpBit</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Sets or clears the Car WakeUp Bit</HintText>
+        <Parameter>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_DisablePartialNetworking</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Disables handling of partial networks</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_EnablePartialNetworking</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Enables handling of partial networks</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SetPnRequestBits</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Set the PN request bits</HintText>
+        <Parameter>
+          <Name>userData</Name>
+          <Type rank="1">byte</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetPnRequestBitsDefault</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get the PN request bits</HintText>
+        <Parameter>
+          <Name>userOut</Name>
+          <Type rank="1">byte</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>bufferSize</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>numberOfBitsOut</Name>
+          <Type rank="1">dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetPnAffiliation</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get request bit for specific PN</HintText>
+        <Parameter>
+          <Name>pnId</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_IsPnCurrentlyRequested</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get request status of specific PN</HintText>
+        <Parameter>
+          <Name>pnId</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>flags</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_IsPnEnabled</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Returns current usage of partial networking (1 = enabled, 0 = disabled)</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetPnCurrentInternalRequestBits</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get internal request status of PNs</HintText>
+        <Parameter>
+          <Name>bufferOut</Name>
+          <Type rank="1">byte</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>bufferSize</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>numberOfBitsOut</Name>
+          <Type rank="1">dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetPnCurrentExternalRequestBits</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get external request status of PNs</HintText>
+        <Parameter>
+          <Name>flags</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>bufferOut</Name>
+          <Type rank="1">byte</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>bufferSize</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>numberOfBitsOut</Name>
+          <Type rank="1">dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetPncBitVectorOffset</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get the PNC Bit vector offset</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetPncBitVectorLength</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get the PNC Bit vector length</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SendImmediateNmPDU</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Send immediate NM PDU (e.g.for synchronized PNC shutdown)</HintText>
+        <Parameter>
+          <Name>flags</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>data</Name>
+          <Type rank="1">byte</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>bufferSize</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetCbvPosition</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get the Cbv position</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetSniPosition</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get the Sni position</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetPDULength</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Get the PDU length</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SetApplicationActivity</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Set application level NM activity</HintText>
+        <Parameter>
+          <Name>isActive</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetNodeName</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Retrieve this node's name</HintText>
+        <Parameter>
+          <Name>bufferOut</Name>
+          <Type rank="1">char</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>bufferSize</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>void</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetLocalNodeIdentifier</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Retrieve this node's identifier</HintText>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SetVerbosity</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Set DLL verbosity</HintText>
+        <Parameter>
+          <Name>level</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>void</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_GetDLLInfo</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Retrieve additional information about DLL and settings</HintText>
+        <Parameter>
+          <Name>selector</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SetILSleepTime</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Set IL node layer sleep time [ms]</HintText>
+        <Parameter>
+          <Name>timeMS</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_ReinitSleepTimer</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Restart sleep timer to delay transition</HintText>
+        <Result>
+          <Type>void</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_CtrlSimulationOn</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Enables the NM simulation</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_CtrlSimulationOff</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Disables the NM simulation</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SetParameter</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Sets a parameter value</HintText>
+        <Parameter>
+          <Name>selector</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>value</Name>
+          <Type>qword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_SetAutoStartParam</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Defines the initial NM behavior (0: NM is in BusSleep, 1: NM starts automatically, 2: NM starts if IL is present)</HintText>
+        <Parameter>
+          <Name>nmAutoStartParam</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>void</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_ConfigureILNotifications</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Configures notifications between NM and IL (first parameter: direction (0: NM-&gt;IL, 1: IL-&gt;NM), second parameter: mode (0: no notifications, 1: always notifications, 2: notifications in absence of certain CAPL functions)</HintText>
+        <Parameter>
+          <Name>Direction</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Mode</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>NmFI_IgnoreRepeatMessageBit</FunctionName>
+        <CategoryName>AUTOSAR NM Fault Injection</CategoryName>
+        <HintText>Defines the reaction upon received repeat message bit (0: normal behavior, else: repeat message bit will be ignored)</HintText>
+        <Parameter>
+          <Name>value</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>void</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>Nm_InhibitActiveWakeUpBit</FunctionName>
+        <CategoryName>AUTOSAR NM</CategoryName>
+        <HintText>Defines if the Active Wakeup Bit is set within the CBV (0: Active Wakeup Bit is set, 1: Active Wakeup Bit is not set)</HintText>
+        <Parameter>
+          <Name>value</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>void</Type>
+        </Result>
+      </Function>
+    </ExportTable>
+    <CallbackTable />
+  </CAPL-DLL>
+</Module>

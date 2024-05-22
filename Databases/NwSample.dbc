@@ -1,0 +1,276 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: Door SGW
+
+
+BO_ 1008 BCM_DoorControl: 1 SGW
+ SG_ DoorState : 0|1@0+ (1,0) [0|1] ""  Door
+ SG_ DoorIndex : 2|2@0+ (1,0) [0|3] ""  Door
+
+BO_ 1264 Door_Status: 1 Door
+ SG_ DoorStatus_RearRight : 3|2@0+ (1,0) [0|3] ""  SGW
+ SG_ DoorStatus_RearLeft : 1|2@0+ (1,0) [0|3] ""  SGW
+ SG_ DoorStatus_FrontLeft : 5|2@0+ (1,0) [0|3] ""  SGW
+ SG_ DoorStatus_FrontRight : 7|2@0+ (1,0) [0|3] ""  SGW
+
+BO_ 1280 SGW_NM: 8 SGW
+ SG_ usrData5 : 63|8@0+ (1,0) [0|255] ""  Door
+ SG_ usrData4 : 55|8@0+ (1,0) [0|255] ""  Door
+ SG_ usrData3 : 47|8@0+ (1,0) [0|255] ""  Door
+ SG_ usrData2 : 39|8@0+ (1,0) [0|255] ""  Door
+ SG_ usrData1 : 31|8@0+ (1,0) [0|255] ""  Door
+ SG_ usrData0 : 23|8@0+ (1,0) [0|255] ""  Door
+ SG_ SGW_srcNodeID : 15|8@0+ (1,0) [0|255] ""  Door
+ SG_ SGW_CtrlBitVector : 7|8@0+ (1,0) [0|255] ""  Door
+
+BO_ 1921 Door_DiagResponsePeriodic: 0 Door
+
+BO_ 1537 Door_DiagResponse: 8 Door
+ SG_ DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  SGW
+ SG_ DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  SGW
+ SG_ DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  SGW
+ SG_ DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  SGW
+ SG_ DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  SGW
+ SG_ DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  SGW
+ SG_ DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  SGW
+ SG_ DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  SGW
+
+BO_ 1793 Door_DiagRequest: 8 SGW
+ SG_ DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  Door
+ SG_ DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  Door
+ SG_ DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  Door
+ SG_ DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  Door
+ SG_ DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  Door
+ SG_ DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  Door
+ SG_ DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  Door
+ SG_ DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  Door
+
+BO_ 1872 DiagRequest_BodyFunctional: 0 SGW
+
+
+
+CM_ "Sample network database CANFD";
+CM_ BU_ SGW "Gateway function simulation node";
+CM_ BO_ 1008 "DOOR control";
+CM_ BO_ 1264 "DOOR status";
+CM_ SG_ 1280 usrData5 "Network management signal";
+CM_ SG_ 1280 usrData4 "Network management signal";
+CM_ SG_ 1280 usrData3 "Network management signal";
+CM_ SG_ 1280 usrData2 "Network management signal";
+CM_ SG_ 1280 usrData1 "Network management signal";
+CM_ SG_ 1280 usrData0 "Network management signal";
+CM_ SG_ 1280 SGW_srcNodeID "Network management signal";
+CM_ SG_ 1280 SGW_CtrlBitVector "Network management signal";
+CM_ SG_ 1537 DiagRespData7 "Diagnostic signal data response";
+CM_ SG_ 1537 DiagRespData6 "Diagnostic signal data response";
+CM_ SG_ 1537 DiagRespData5 "Diagnostic signal data response";
+CM_ SG_ 1537 DiagRespData4 "Diagnostic signal data response";
+CM_ SG_ 1537 DiagRespData3 "Diagnostic signal data response";
+CM_ SG_ 1537 DiagRespData2 "Diagnostic signal data response";
+CM_ SG_ 1537 DiagRespData1 "Diagnostic signal data response";
+CM_ SG_ 1537 DiagRespData0 "Diagnostic signal data response";
+CM_ SG_ 1793 DiagReqData7 "Diagnostic signal Data request";
+CM_ SG_ 1793 DiagReqData6 "Diagnostic signal Data request";
+CM_ SG_ 1793 DiagReqData5 "Diagnostic signal Data request";
+CM_ SG_ 1793 DiagReqData4 "Diagnostic signal Data request";
+CM_ SG_ 1793 DiagReqData3 "Diagnostic signal Data request";
+CM_ SG_ 1793 DiagReqData2 "Diagnostic signal Data request";
+CM_ SG_ 1793 DiagReqData1 "Diagnostic signal Data request";
+CM_ SG_ 1793 DiagReqData0 "Diagnostic signal Data request";
+BA_DEF_ SG_  "GenSigTimeoutTime_SGW" INT 0 65535;
+BA_DEF_ SG_  "GenSigTimeoutTime_Door" INT 0 65535;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "NotUsed","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 2147483647;
+BA_DEF_ SG_  "GenSigStartValue" INT 0 2147483647;
+BA_DEF_ BO_  "DiagRoeFlowControl" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRoeResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagConnection" HEX 0 65535;
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "NmAsrMessage" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 65535;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 255;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","NoMsgSendType";
+BA_DEF_ BO_  "NmMessage" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "Type" ENUM  "P","C","PE","COC","PE_Cntrl","E","E_Cntrl","OC","S","BAF","DC","EM","MM","ISO-TP","-";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BU_  "NwmNodeType" ENUM  "+15_NotWakeable","+30_Wakeable","+30_NotWakeable","kMaster","kSlave15","kSlave30","none";
+BA_DEF_ BU_  "NmNodeType" ENUM  "+15_NotWakeable","+30_Wakeable","+30_NotWakeable","kMaster","kSlave15","kSlave30","none";
+BA_DEF_ BU_  "NmAsrCanMsgReducedTime" INT 1 65535;
+BA_DEF_ BU_  "IsOBDrelevant" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmAsrNodeIdentifier" HEX 0 255;
+BA_DEF_ BU_  "NmAsrCanMsgCycleOffset" INT 0 65535;
+BA_DEF_ BU_  "NmAsrNode" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmNode" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmStationAddress" HEX 0 255;
+BA_DEF_ BU_  "Description" STRING ;
+BA_DEF_  "VersionYear" INT 0 99;
+BA_DEF_  "VersionWeek" INT 0 53;
+BA_DEF_  "Version" HEX 0 255;
+BA_DEF_  "NmAsrCanMsgCycleTime" INT 1 65535;
+BA_DEF_  "NmAsrBaseAddress" HEX 235487232 2147483647;
+BA_DEF_  "NmAsrMessageCount" INT 1 256;
+BA_DEF_  "NmAsrRepeatMessageTime" INT 1 65535;
+BA_DEF_  "NmAsrWaitBusSleepTime" INT 1 65535;
+BA_DEF_  "NmAsrTimeoutTime" INT 1 65535;
+BA_DEF_  "Baudrate" INT 0 1000000;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_ BO_  "CANFD_BRS" ENUM  "0","1";
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_DEF_  "GenSigTimeoutTime_SGW" 2500;
+BA_DEF_DEF_  "GenSigTimeoutTime_Door" 2500;
+BA_DEF_DEF_  "GenSigSendType" "NoSigSendType";
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "DiagRoeFlowControl" "No";
+BA_DEF_DEF_  "DiagRoeResponse" "No";
+BA_DEF_DEF_  "DiagConnection" 0;
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "NmAsrMessage" "No";
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "No";
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgSendType" "NoMsgSendType";
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "Type" "-";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "NwmNodeType" "none";
+BA_DEF_DEF_  "NmNodeType" "none";
+BA_DEF_DEF_  "NmAsrCanMsgReducedTime" 100;
+BA_DEF_DEF_  "IsOBDrelevant" "No";
+BA_DEF_DEF_  "NmAsrNodeIdentifier" 0;
+BA_DEF_DEF_  "NmAsrCanMsgCycleOffset" 0;
+BA_DEF_DEF_  "NmAsrNode" "Yes";
+BA_DEF_DEF_  "NmNode" "Yes";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "Description" "";
+BA_DEF_DEF_  "VersionYear" 22;
+BA_DEF_DEF_  "VersionWeek" 38;
+BA_DEF_DEF_  "Version" 160;
+BA_DEF_DEF_  "NmAsrCanMsgCycleTime" 200;
+BA_DEF_DEF_  "NmAsrBaseAddress" 506724352;
+BA_DEF_DEF_  "NmAsrMessageCount" 256;
+BA_DEF_DEF_  "NmAsrRepeatMessageTime" 800;
+BA_DEF_DEF_  "NmAsrWaitBusSleepTime" 750;
+BA_DEF_DEF_  "NmAsrTimeoutTime" 1000;
+BA_DEF_DEF_  "Baudrate" 500000;
+BA_DEF_DEF_  "NmType" "";
+BA_DEF_DEF_  "Manufacturer" "OEM";
+BA_DEF_DEF_  "CANFD_BRS" "0";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_DEF_DEF_  "VFrameFormat" "StandardCAN";
+BA_ "BusType" "CAN";
+BA_ "VersionYear" 24;
+BA_ "VersionWeek" 1;
+BA_ "Version" 15;
+BA_ "NmAsrCanMsgCycleTime" 1000;
+BA_ "NmAsrRepeatMessageTime" 5000;
+BA_ "NmAsrWaitBusSleepTime" 1000;
+BA_ "NmAsrTimeoutTime" 8000;
+BA_ "NmType" "NmAsr";
+BA_ "Manufacturer" "OEM_Sample";
+BA_ "DBName" "NwSample";
+BA_ "NmStationAddress" BU_ Door 64;
+BA_ "NmStationAddress" BU_ SGW 252;
+BA_ "NmAsrCanMsgReducedTime" BU_ SGW 800;
+BA_ "NmAsrNodeIdentifier" BU_ SGW 252;
+BA_ "Description" BU_ SGW "Simulated Gateway module";
+BA_ "NodeLayerModules" BU_ SGW "AsrNM33.vmodule,CANoeILNLVector.vmodule";
+BA_ "GenMsgCycleTime" BO_ 1008 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1008 20;
+BA_ "GenMsgILSupport" BO_ 1008 1;
+BA_ "GenMsgNrOfRepetition" BO_ 1008 3;
+BA_ "GenMsgSendType" BO_ 1008 0;
+BA_ "CANFD_BRS" BO_ 1008 0;
+BA_ "GenMsgCycleTime" BO_ 1264 1000;
+BA_ "GenMsgCycleTimeFast" BO_ 1264 100;
+BA_ "GenMsgILSupport" BO_ 1264 1;
+BA_ "GenMsgNrOfRepetition" BO_ 1264 2;
+BA_ "GenMsgSendType" BO_ 1264 0;
+BA_ "CANFD_BRS" BO_ 1264 0;
+BA_ "GenMsgCycleTime" BO_ 1280 550;
+BA_ "GenMsgILSupport" BO_ 1280 1;
+BA_ "GenMsgSendType" BO_ 1280 0;
+BA_ "CANFD_BRS" BO_ 1280 0;
+BA_ "NmAsrMessage" BO_ 1280 1;
+BA_ "DiagRoeFlowControl" BO_ 1921 1;
+BA_ "DiagRoeResponse" BO_ 1921 1;
+BA_ "GenMsgCycleTime" BO_ 1921 500;
+BA_ "GenMsgNrOfRepetition" BO_ 1921 2;
+BA_ "DiagResponse" BO_ 1921 1;
+BA_ "CANFD_BRS" BO_ 1921 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1921 100;
+BA_ "VFrameFormat" BO_ 1537 0;
+BA_ "DiagResponse" BO_ 1537 1;
+BA_ "CANFD_BRS" BO_ 1537 0;
+BA_ "VFrameFormat" BO_ 1793 0;
+BA_ "DiagRequest" BO_ 1793 1;
+BA_ "CANFD_BRS" BO_ 1793 0;
+BA_ "VFrameFormat" BO_ 1872 0;
+BA_ "DiagResponse" BO_ 1872 1;
+BA_ "CANFD_BRS" BO_ 1872 0;
+BA_ "NodeLayerModules" BU_ Door "AsrNM33.vmodule,CANoeILNLVector.vmodule";
+VAL_ 1008 DoorState 1 "CLOSE" 0 "OPEN" ;
+VAL_ 1008 DoorIndex 3 "DOOR_REAR_RIGHT" 2 "DOOR_REAR_LEFT" 1 "DOOR_FRONT_RIGHT" 0 "DOOR_FRONT_LEFT" ;
+VAL_ 1264 DoorStatus_RearRight 3 "FAULT" 2 "CLOSED" 1 "OPEN" 0 "NA" ;
+VAL_ 1264 DoorStatus_RearLeft 3 "FAULT" 2 "CLOSED" 1 "OPEN" 0 "NA" ;
+VAL_ 1264 DoorStatus_FrontLeft 3 "FAULT" 2 "CLOSED" 1 "OPEN" 0 "NA" ;
+VAL_ 1264 DoorStatus_FrontRight 3 "FAULT" 2 "CLOSED" 1 "OPEN" 0 "NA" ;
+

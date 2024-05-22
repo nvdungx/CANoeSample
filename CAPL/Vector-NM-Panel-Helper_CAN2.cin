@@ -1,0 +1,56 @@
+variables
+{
+  /* NM-IL Include for initializing the NM panel controls
+   *
+   * ATTENTION: Adapt variables gNumSimNodes and gSimNodeNames and system variable definitions
+   * in file "SysVarDef.xml" to your nodes of the CANoe's simulation setup!
+   *
+   * Version 6.5, (c) 2016 Vector Informatik GmbH, Department for Networks and Distributed Systems
+   */
+
+  dword gNMPCAN2_Channel                 = 2; // The CAN channel the bus is attached to
+  dword gNMPCAN2_DebugFlags              = 0;
+
+  const int cNMPCAN2_MaxSimNodes = 2;
+  const int cNMPCAN2_HasNMPanel = 1;
+
+  // The nodes of CANoe's simulation setup that are possibly observed:
+  int   gNMPCAN2_NumSimNodes = 2;
+    
+  char  gNMPCAN2_SimNodeNames[cNMPCAN2_MaxSimNodes][100] = { // All these CAPL nodes need to include this file!
+    "Door", "SGW"
+  };
+
+  const dword cNMPCAN2_NMControlDebug  = 0x0004;
+  const dword cNMPCAN2_BusControlDebug = 0x0008;
+
+  enum tCAN2_ASR_NM_STATE {
+    cCAN2_ASR_NM_STATE_UNDEFINED         = 0,
+    cCAN2_ASR_NM_STATE_BUS_SLEEP         = 1,
+    cCAN2_ASR_NM_STATE_PREPARE_BUS_SLEEP = 2,
+    cCAN2_ASR_NM_STATE_READY_SLEEP       = 3,
+    cCAN2_ASR_NM_STATE_NORMAL_OPERATION  = 4,
+    cCAN2_ASR_NM_STATE_REPEAT_MESSAGE    = 5,
+    cCAN2_ASR_NM_STATE_SYNCHRONIZE       = 6
+  };
+
+  enum tCAN2_OSEK_NM_STATE {
+    cCAN2_OSEK_NM_STATE_UNDEFINED        = 0,
+    cCAN2_OSEK_NM_STATE_BUS_SLEEP        = 1,
+    cCAN2_OSEK_NM_STATE_READY_SLEEP      = 2,
+    cCAN2_OSEK_NM_STATE_AWAKE            = 3
+  };
+
+  enum tCAN2_NM_NODE_MODE {
+    cCAN2_NM_NODE_MODE_Sleep_Mode        = 0,
+    cCAN2_NM_NODE_MODE_Network_Mode      = 1,
+    cCAN2_NM_NODE_MODE_Synchronize_Mode  = 2
+  };
+
+  const double cNMPCAN2_NS2S = 1000000000.0;
+
+}
+
+/*****************************************************************************
+ * EOF
+ *****************************************************************************/

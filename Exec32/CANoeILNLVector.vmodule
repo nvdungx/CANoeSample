@@ -1,0 +1,543 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CANoe_vmodule_1.1.xsd">
+  <Name>CANoeILNLVector</Name>
+  <Version>3.30.128</Version>
+  <Application>CANoe</Application>
+  <ModuleType>NodeLayer-DLL</ModuleType>
+  <ModuleType>CAPL-DLL</ModuleType>
+  <SupportedArchitecture arch="Windows-x64 Windows-x86 WEC-ERT Linux-x64 Linux-ERT" minAppVersion="14.0.0" />
+  <LibraryPath arch="Windows-x64" minAppVersion="14.0.0">CANoe_14_0/Exec64/CANoeILNLVector.dll</LibraryPath>
+  <LibraryPath arch="Windows-x86" minAppVersion="14.0.0">CANoe_14_0/Exec32/CANoeILNLVector.dll</LibraryPath>
+  <LibraryPath arch="Linux-x64" minAppVersion="14.0.0">CANoe_14_0/Modules_Linux-x64/libCANoeILNLVector.so</LibraryPath>
+  <LibraryPath arch="WEC-ERT" minAppVersion="14.0.0" maxAppVersion="17.99.0">CANoe_14_0/Exec32/ERT/CANoeILNLVector.dll</LibraryPath>
+  <LibraryPath arch="Linux-ERT" minAppVersion="16.3.0">CANoe_16_3/Modules_Linux-x64/ERT_II/libCANoeILNLVector.so</LibraryPath>
+  <CAPL-DLL minAppVersion="14.0.0">
+    <CDLL_VERSION>2</CDLL_VERSION>
+    <CallingConvention>CDECL</CallingConvention>
+    <CAN_MSG_VERSION>1</CAN_MSG_VERSION>
+    <ExportTable>
+      <Function>
+        <FunctionName>ILControlInit</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Initializes CANoeIL</HintText>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILControlStart</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Starts CANoeIL</HintText>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILControlStop</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Stops CANoeIL</HintText>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILControlWait</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Change to 'waiting'</HintText>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILControlWait</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Change to 'waiting'</HintText>
+        <Parameter>
+          <Name>flags</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILControlResume</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Change back from 'waiting' to 'running'</HintText>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILControlResume</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Change back from 'waiting' to 'running'</HintText>
+        <Parameter>
+          <Name>flags</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILControlSimulationOff</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>The simulation of the IL is disabled.</HintText>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILControlSimulationOn</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>The simulation of the IL is enabled</HintText>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetResultString</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Maintenance/Init/Info/Help</CategoryName>
+        <HintText>Converts the result into a readable string</HintText>
+        <Parameter>
+          <Name>ResultNumeric</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>ResultTextual</Name>
+          <Type rank="1">char</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>LengthResultTextual</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILErrno</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Maintenance/Init/Info/Help</CategoryName>
+        <HintText>ILErrno</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetAutoStartParam</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Defines state after measurement start (0: Waiting, 1: Stopped, 2: Starting)</HintText>
+        <Parameter>
+          <Name>State</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILConfigureNMNotifications</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Configures notifications between IL and NM (first parameter: direction (0: IL-&gt;NM, 1: NM-&gt;IL), second parameter: mode (0: no notifications, 1: always notifications, 2: notifications in absence of certain CAPL functions)</HintText>
+        <Parameter>
+          <Name>Direction</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Mode</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>dword</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetOperationMode</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Sets specific operation mode</HintText>
+        <Parameter>
+          <Name>Mode</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Parameter</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetSignal</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Signal Handling</CategoryName>
+        <HintText>Sets the physical value of signal</HintText>
+        <Parameter>
+          <Name>Signal</Name>
+          <Type>dbSignal</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Value</Name>
+          <Type>float</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetSignalRaw</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Signal Handling</CategoryName>
+        <HintText>Sets the raw value of signal</HintText>
+        <Parameter>
+          <Name>Signal</Name>
+          <Type>dbSignal</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Value</Name>
+          <Type>float</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetSignalRawField</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Signal Handling</CategoryName>
+        <HintText>Sets the raw value of signal - applicable for integers &gt; 32 bits</HintText>
+        <Parameter>
+          <Name>Signal</Name>
+          <Type>dbSignal</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>ValueField</Name>
+          <Type rank="1">byte</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>LengthField</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILControlMsg</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Message Handling</CategoryName>
+        <HintText>Controls message settings</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Control</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Flags</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Param1</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Param2</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetEvent</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Signal Handling</CategoryName>
+        <HintText>Sets an event for signal</HintText>
+        <Parameter>
+          <Name>Signal</Name>
+          <Type>dbSignal</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetMsgEvent</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Message Handling</CategoryName>
+        <HintText>Sets an event for message</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILFaultInjectionEnableMsg</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Fault Injection and Disturbance</CategoryName>
+        <HintText>Enables the sending of a message</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILFaultInjectionDisableMsg</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Fault Injection and Disturbance</CategoryName>
+        <HintText>Disables a message</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILFaultInjectionSetMsgCycleTime</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Fault Injection and Disturbance</CategoryName>
+        <HintText>Assigns a new cycle time to the message</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Value</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILFaultInjectionResetMsgCycleTime</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Fault Injection and Disturbance</CategoryName>
+        <HintText>Resets the cycle time of a message to the database cycle time</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILFaultInjectionResetAllFaultInjections</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Fault Injection and Disturbance</CategoryName>
+        <HintText>Resets all fault injection settings</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILFaultInjectionSetMsgDlc</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Fault Injection and Disturbance</CategoryName>
+        <HintText>Assigns a new dlc to the message</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Dlc</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILFaultInjectionResetMsgDlc</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Fault Injection and Disturbance</CategoryName>
+        <HintText>Resets the dlc of a message to the database dlc</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILFaultInjectionSetMsgLength</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Fault Injection and Disturbance</CategoryName>
+        <HintText>Assigns a new length (in bytes) to the message</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>Length</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILFaultInjectionResetMsgLength</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Fault Injection and Disturbance</CategoryName>
+        <HintText>Resets the length of a message to the database length</HintText>
+        <Parameter>
+          <Name>Message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILConfigSetRole</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Maintenance/Init/Info/Help</CategoryName>
+        <HintText>Sets the role of the user</HintText>
+        <Parameter>
+          <Name>Role</Name>
+          <Type rank="1">char</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILConfigSetPollingRate</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Maintenance/Init/Info/Help</CategoryName>
+        <HintText>Sets the polling rate for signal generator updates</HintText>
+        <Parameter>
+          <Name>PollingRate</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILGetGlobalActivity</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Gets number of active signals (OSEK NWM)</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILActivateClamp15</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Notification 'ignition on' status</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILDeactivateClamp15</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Control</CategoryName>
+        <HintText>Notification 'ignition off' status</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetCANFDParam</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Message Handling</CategoryName>
+        <HintText>Sets CAN FD parameters</HintText>
+        <Parameter>
+          <Name>message ID</Name>
+          <Type>dword</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>FDF</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>BRS</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>DLC</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILSetCANFDParam</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Message Handling</CategoryName>
+        <HintText>Sets CAN FD parameters</HintText>
+        <Parameter>
+          <Name>message</Name>
+          <Type>dbMessage</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>FDF</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>BRS</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Parameter>
+          <Name>DLC</Name>
+          <Type>long</Type>
+          <ParameterPassing>CallByValue</ParameterPassing>
+        </Parameter>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+      <Function>
+        <FunctionName>ILResetAllCANFDParam</FunctionName>
+        <CategoryName>CANoe Interaction Layer (Vector) - Message Handling</CategoryName>
+        <HintText>Resets CAN FD parameters for all messages</HintText>
+        <Result>
+          <Type>long</Type>
+        </Result>
+      </Function>
+    </ExportTable>
+    <CallbackTable />
+  </CAPL-DLL>
+</Module>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="IL" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Klemme15" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Klemme30" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+    </namespace>
+    <namespace name="IL_CAN2" comment="" interface="">
+      <namespace name="NODES" comment="" interface="">
+        <namespace name="N_Door" comment="" interface="">
+          <namespace name="MESSAGES" comment="" interface="">
+            <namespace name="Door_Status" comment="" interface="">
+              <namespace name="TIMINGS" comment="" interface="">
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ActiveCyclePeriod" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="100" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="CyclePeriod" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="2000" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="EnableCyclic" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="NormalCyclePeriod" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1000" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SelectedPeriod" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SendOnce" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SetNewCycleContinously" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SetNormalCycle" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              </namespace>
+            </namespace>
+          </namespace>
+          <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="EnableNode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+        </namespace>
+        <namespace name="N_SGW" comment="" interface="">
+          <namespace name="MESSAGES" comment="" interface="">
+            <namespace name="BCM_DoorControl" comment="" interface="">
+              <namespace name="TIMINGS" comment="" interface="">
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ActiveCyclePeriod" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="20" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="CyclePeriod" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="200" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="EnableCyclic" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="NormalCyclePeriod" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="100" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SelectedPeriod" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SendOnce" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SetNewCycleContinously" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+                <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SetNormalCycle" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              </namespace>
+            </namespace>
+          </namespace>
+          <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="EnableNode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+        </namespace>
+      </namespace>
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="enable_AllNodes" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+    </namespace>
+    <namespace name="NM_CAN2" comment="" interface="">
+      <namespace name="NODES" comment="" interface="">
+        <namespace name="N_Door" comment="" interface="">
+          <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="DeactivateNM" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+          <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="OpenNodePanel" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        </namespace>
+        <namespace name="N_SGW" comment="" interface="">
+          <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="DeactivateNM" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+          <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="OpenNodePanel" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        </namespace>
+      </namespace>
+      <namespace name="StateControl" comment="" interface="">
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ActiveNodes" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="CloseNodePanels" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="DeactivateNM" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="NmPduTxEnable" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+      </namespace>
+    </namespace>
+  </namespace>
+</systemvariables>

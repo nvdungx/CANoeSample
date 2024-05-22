@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=7.1.94.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=7.1.94.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="NM Panel CAN2" Children="Controls">
+    <Object Type="Vector.CANalyzer.Panels.Design.NmControl, Vector.CANalyzer.Panels.CommonControls, Version=7.1.94.0, Culture=neutral, PublicKeyToken=null" Name="NmControl1" ControlName="NM_CAN2_NMControl" Children="Controls">
+      <Property Name="Name">NmControl1</Property>
+      <Property Name="Size">538,188</Property>
+      <Property Name="Location">5,5</Property>
+      <Property Name="BackColor">255,255,255</Property>
+      <Property Name="NumberDisplay">Hexadecimal</Property>
+      <Property Name="FillPanel">True</Property>
+      <Property Name="SymbolConfiguration"></Property>
+      <Property Name="Network">NwSample</Property>
+      <Property Name="ForeColor">0,0,0</Property>
+    </Object>
+    <Property Name="Panel">Panel</Property>
+    <Property Name="Size">548,198</Property>
+    <Property Name="BackColor">255,255,255</Property>
+  </Object>
+</Panel>
