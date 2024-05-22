@@ -1,0 +1,38 @@
+testcase TESTCASE_TEMPLATE()
+{
+    /*   TC variables   */
+
+    /*   TC setup   */
+    tcSetup("TC", "Name of test case");
+    tcDescription("");
+
+    traceability("");
+    environment("");
+    precondition("");
+
+    if (newTestStep("Preparation", "", ""))
+    {
+        // TC preparation code here
+        TestStepPass();
+    }
+
+    /*   Actual test   */
+
+    /*
+    Test step 1
+    */
+    if (nextTestStep("",
+                     ""))
+    {
+    }
+
+    /*
+    Test step 2
+    */
+    if (nextTestStep("",
+                     ""))
+    {
+    }
+
+    /*   post run   */
+}

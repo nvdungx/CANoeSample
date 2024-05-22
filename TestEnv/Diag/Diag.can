@@ -1,0 +1,272 @@
+/*@!Encoding:1252*/
+includes{
+  #include "../Common/Common.cin"
+  #pragma netlibrary("../Common/Libs/TestApiLib.dll")
+}
+variables
+{
+  enum enDiagSessionType
+  {
+    enDiagSessionType_DEFAULT = 1,
+    enDiagSessionType_PROG = 2,
+    enDiagSessionType_EXTENDED = 3
+  };
+}
+int InitDiagSession(void)
+{
+  if (diagSetTarget("Door") >= 0)
+  {
+    testStepPass("Diag target set successful");
+    if (diagStartTesterPresent() < 0)
+    {
+      testStepFail("Fail to start Tester Present");
+      return FAIL;
+    }
+    else
+    {
+      testStepPass("Start Tester Present");
+    }
+  }
+  else
+  {
+    testStepFail("FAIL to set Diag target");
+    return FAIL;
+  }
+  return PASS;
+}
+int ChangeDiagSession(int session)
+{
+    int result = PASS;
+    diagRequest * diagReq;
+    diagResponse * diagResp;
+    switch (session)
+    {
+    case enDiagSessionType_DEFAULT:
+        diagReq.Initialize("DefaultSession_Start");
+        diagResp.Initialize("DefaultSession_Start");
+        break;
+    case enDiagSessionType_PROG:
+        diagReq.Initialize("ProgrammingSession_Start");
+        diagResp.Initialize("ProgrammingSession_Start");
+        break;
+    case enDiagSessionType_EXTENDED:
+        diagReq.Initialize("ExtendedDiagnosticSession_Start");
+        diagResp.Initialize("ExtendedDiagnosticSession_Start");
+        break;
+    default:
+        testStepFail("INVALID diagnostic session request");
+        return FAIL;
+    }
+    result &= DiagSendRequestWaitResult(diagReq);
+    if (result == PASS)
+    {
+      diagReq.GetLastResponse(diagResp);
+      testStepPass("", "change diagnostic session SUCCESSFUL %g - %g", diagResp.GetParameter("P2"), diagResp.GetParameter("P2Ex"));
+    }
+    else
+    {
+      testStepFail("FAIL to change diagnostic session"); 
+    }
+    return result;
+}
+int DiagSendRequestWaitResult(diagRequest *req)
+{
+    dword req_timeout;
+    dword resp_timeout;
+    req_timeout = diagGetP2Extended(0);
+    resp_timeout = diagGetP6Extended(0) * 9;
+    return DiagSendRequestWaitResult(req, req_timeout, resp_timeout);
+
+    /*
+    TestWaitForDiagResponse (diagRequest request, dword timeout):
+
+    Waits for the arrival of the response to the given request.
+
+    The function will return immediately after a positive or negative reponse - other
+    than "responsePending" - was received within the configured protocol (P2/P2*) timings.
+
+    Intermediate "responsePending" NRCs from the target ECU will automatically prolong
+    the wait timer of the tester in P2* increments until maximally <timeout> [ms].
+    If by then no response has been received from the ECU target, the function will
+    return with value <0, timeoutReached>.
+    */
+}
+int DiagSendRequestWaitResult(diagRequest *req, dword req_timeout, dword resp_timeout)
+{
+    // return 1 if requst was send without errors
+    //        0 other errors.
+
+    long errCode, waitResult;
+    char str[STR_LEN], errBuf[STR_LEN], diagName[STR_LEN];
+    int result = PASS;
+
+    req.GetObjectName(diagName, elCount(diagName));
+    if ((errCode = req.sendRequest()) < 0)
+    {
+        snprintf(errBuf, elcount(errBuf), "diagSendRequest(%s): failed with error %d", diagName, errCode);
+        setStepError(errBuf);
+        result = FAIL;
+    }
+    else
+    {
+        testStepPass("", "diagSendRequest(%s): send successful", diagName);
+        result = PASS;
+    }
+    if (result == PASS)
+    {
+        if ((errCode = testWaitForDiagRequestSent(req, req_timeout)) != 1)
+        {
+            snprintf(errBuf, elcount(errBuf), "testWaitForDiagRequestSent(%s): Request not sent, error code %d", diagName, errCode);
+            setStepError(errBuf);
+            result = FAIL;
+        }
+        else
+        {
+            testStepPass("", "testWaitForDiagRequestSent(%s): send completed", diagName);
+            result = PASS;
+        }
+    }
+    if (result == PASS)
+    {
+        waitResult = testWaitForDiagResponse(req, resp_timeout);
+        if (waitResult == 1)
+        {
+            testStepPass("", "testWaitForDiagResponse(%s): response available", diagName);
+            result = PASS;
+        }
+        else if (0 == waitResult)
+        {
+            snprintf(errBuf, elcount(errBuf), "testWaitForDiagResponse(%s): Response not received within %d ms.", diagName, resp_timeout);
+            setStepError(errBuf);
+            result = FAIL;
+        }
+        else if (0 > waitResult)
+        {
+            snprintf(errBuf, elcount(errBuf), "testWaitForDiagResponse(%s): waiting for response failed with error code %d", diagName, waitResult);
+            setStepError(errBuf);
+            result = FAIL;
+        }
+        else
+        {
+            setStepError("Abnormal ERROR CODE!!");
+            result = FAIL;
+        }
+    }
+    if (result == PASS)
+    {
+        if (req.GetLastResponseCode() != -1)
+        {
+            if (req.GetLastResponseCode() == 0) // No response
+            {
+                snprintf(errBuf, elcount(errBuf), "diagSendRequestWaitResult(%s): No response", diagName);
+                setStepError(errBuf);
+                result = FAIL;
+            }
+            else
+            {
+                NRCToString(req.GetLastResponseCode(), str);
+                snprintf(errBuf, elcount(errBuf), "diagSendRequestWaitResult(%s): Negative response %s", diagName, str);
+                setStepError(errBuf);
+                result = FAIL;
+            }
+        }
+        else
+        {
+            testStepPass("", "diagSendRequestWaitResult(%s): Positive response", diagName);
+            result = PASS;
+        }
+    }
+    return result;
+}
+
+testcase Diag_ReadDynamicDIDs_001()
+{
+  /*   TC variables   */
+  int result = PASS;
+  byte strArr[100];
+  byte hashResult[32];
+  int i;
+  char temp[10], prStr[1024];
+  /*   TC setup   */
+  tcSetup("Diag_ReadDynamicDIDs_001", "read out dynamic DIDs data");
+  tcDescription("verify ECU report dynamic DIDs data correctly");
+
+  traceability("");
+  environment("");
+  precondition("");
+
+  if (newTestStep("Preparation", "Power up board, Init diag", "Diag session available"))
+  {
+    tcPreRun();
+    // TC preparation code here
+    InitDiagSession();
+  }
+
+  /* Test step 1 */
+  if (nextTestStep("setup vehicle milage value", "read DID_OdometerValue"))
+  {
+    // Ex: stimulate vehicle milage value
+    float vehicleMilage = 200;
+    strArr[0] = 0x30;
+    strArr[1] = 0x31;
+    strArr[2] = 0x32;
+    result &= TestApiLib::GetHashValue(strArr, hashResult);
+
+    for (i = 0; i < elcount(hashResult); i++)
+    {
+      ltoa(hashResult[i], temp, 16);
+      strncat(prStr, temp, elcount(prStr));
+    }
+    testStepPass("", "Hash result: %s", prStr);
+    $SGW::BCM_DoorControl::DoorIndex = VtSig_DoorIndex::DOOR_FRONT_LEFT;
+    $SGW::BCM_DoorControl::DoorState = VtSig_DoorState::OPEN;
+    testWaitForSignalUpdate(SGW::BCM_DoorControl::DoorIndex, 1000);
+    testWaitForSignalUpdate(SGW::BCM_DoorControl::DoorState, 1000);
+    if (1 == testWaitForSignalMatch(Door::Door_Status::DoorStatus_FrontLeft, VtSig_DoorStatus_FrontLeft::OPEN, 1000))
+    {
+      testStepPass("Door::Door_Status::DoorStatus_FrontLeft update as expected");
+    }
+    else
+    {
+      testStepFail("Door::Door_Status::DoorStatus_FrontLeft value INVALID");
+    }
+  }
+
+  tcPostRun();
+}
+
+testcase Diag_DoorControlRID_001()
+{
+  /*   TC variables   */
+  int result = PASS;
+  /*   TC setup   */
+  tcSetup("Diag_ReadDynamicDIDs_001", "read out dynamic DIDs data");
+  tcDescription("verify ECU report dynamic DIDs data correctly");
+
+  traceability("");
+  environment("");
+  precondition("");
+
+  if (newTestStep("Preparation", "Power up board, Init diag", "Diag session available"))
+  {
+    tcPreRun();
+    // TC preparation code here
+    InitDiagSession();
+  }
+
+  /* Test step 1 */
+  if (nextTestStep("request diag routine control Door in INVALID session", "verify diag RID result and corresponding CAN signal status"))
+  {
+      // change to extended session
+      ChangeDiagSession(enDiagSessionType_DEFAULT);
+  }
+  
+  /* Test step 2 */
+  if (nextTestStep("request diag routine control Door in VALID session", "verify diag RID result and corresponding CAN signal status"))
+  {
+      // change to extended session
+      ChangeDiagSession(enDiagSessionType_EXTENDED);
+  }
+
+  tcPostRun();
+}

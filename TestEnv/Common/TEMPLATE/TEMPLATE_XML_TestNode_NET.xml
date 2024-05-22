@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<testmodule title="Diag Tests" version="">
+    <variants>
+        <variant name="Door_Premium">Premium</variant>
+        <variant name="Door_Basic">Basic</variant>
+    </variants>
+
+    <preparation>
+        <vardef name="variant_no" type="int" default="0">0</vardef>
+        <varset name="variant_no" variants="Door_Basic">0</varset>
+        <varset name="variant_no" variants="Door_Premium">1</varset>
+        <nettestfunction name="TestEnvPreparation" title="Test environment preparation">
+            <netparam name="variant" type="int"><var name="variant_no" /></netparam></nettestfunction>
+    </preparation>
+
+    <testgroup title="Diagnostic service normal">
+        <nettestcase name="NET_TestCase_Function" title="Diagnostic read dynamic DIDs data" ident=""/>
+    </testgroup>
+
+    <completion>
+        <nettestfunction name="TestEnvCleanup" title="Test environment cleanup"/>
+    </completion>
+</testmodule>

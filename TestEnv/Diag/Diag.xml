@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<testmodule title="Diag Tests" version="">
+    <variants>
+        <variant name="Door_Premium">Premium</variant>
+        <variant name="Door_Basic">Basic</variant>
+    </variants>
+
+    <preparation>
+        <vardef name="variant_no" type="int" default="0">0</vardef>
+        <varset name="variant_no" variants="Door_Basic">0</varset>
+        <varset name="variant_no" variants="Door_Premium">1</varset>
+        <capltestfunction name="testEnvPreparation" title="Test environment preparation">
+            <caplparam name="variant" type="int"><var name="variant_no" /></caplparam></capltestfunction>
+    </preparation>
+
+    <testgroup title="Diagnostic service normal">
+        <capltestcase name="Diag_ReadDynamicDIDs_001" title="Diagnostic read dynamic DIDs data" ident=""/>
+        <capltestcase name="Diag_DoorControlRID_001" title="Diagnostic request routine control Door" ident=""/>
+    </testgroup>
+
+    <completion>
+        <capltestfunction name="testEnvCleanup" title="Test environment cleanup"/>
+    </completion>
+</testmodule>

@@ -18,6 +18,7 @@ includes
 variables
 {
   // Define global variables for this CAPL file
+  byte ECUDiagSession = 0;
 
   /*--- #GenHeader Begin# --- begin generated comment ---
   | Generated on Wednesday, May 22, 2024, 13:58:33
@@ -427,5 +428,53 @@ on sysvar_update sysvar::NM_CAN2::StateControl::CloseNodePanels
 
 on diagRequest Door.Sessions::*
 {
-  
+  diagResponse this resp;
+  ECUDiagSession = (byte)this.GetParameter("DiagSessionType");
+  writeLineEx(0, 1, "Door diagnostic session change %u", ECUDiagSession);
+  resp.SetParameter("DiagSessionType", ECUDiagSession);
+  resp.SetParameter("P2", 50);
+  resp.SetParameter("P2Ex", 5000);
+  resp.SendPositiveResponse();
+}
+
+on diagRequest Door.DID_OdometerValue_Read
+{
+  diagResponse this resp;
+  resp.SetParameter("OdometerValue", 200);
+  resp.SendPositiveResponse();
+}
+
+on diagRequest Door.DID_Voltage_Read
+{
+  diagResponse this resp;
+  resp.SetParameter(1, "SupplyVoltage", 14.5);
+  resp.SetParameter(1, "InternalVoltage", 13.4);
+  resp.SendPositiveResponse();
+}
+
+on diagRequest Door.Door_Status_Control
+{
+  diagResponse this resp;
+  if (ECUDiagSession == 3)
+  {
+    $Door::Door_Status::DoorStatus_FrontLeft = this.GetParameter("Door_Contact.Door_contact_front_left");
+    $Door::Door_Status::DoorStatus_FrontRight = this.GetParameter("Door_Contact.Door_contact_front_right");
+    $Door::Door_Status::DoorStatus_RearLeft = this.GetParameter("Door_Contact.Door_contact_rear_left");
+    $Door::Door_Status::DoorStatus_RearRight = this.GetParameter("Door_Contact.Door_contact_rear_right");
+    resp.SetParameter("Door_Contact", this.GetParameter("Door_Contact"));
+    resp.SendPositiveResponse();
+  }
+  else
+  {
+    resp.SendNegativeResponse(0x22);
+  }
+}
+
+on signal Door::BCM_DoorControl::DoorIndex
+{
+   
+}
+on signal_update Door::BCM_DoorControl::DoorState
+{
+   
 }

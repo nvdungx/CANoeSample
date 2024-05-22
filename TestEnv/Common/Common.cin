@@ -1,0 +1,459 @@
+/*@!Encoding:1252*/
+variables
+{
+    const PASS = 1;
+    const FAIL = 0;
+    const WARNING = 2;
+    // remembers the current step (used by setTestStep and nextTestStep)
+    int gCurrTestStep;
+
+    // used for test step description
+    const STR_LEN = 1024;
+    char gStepOperation[STR_LEN];
+    char gStepExpectedResult[STR_LEN];
+
+    char gLogDir[STR_LEN] = "Report/Log/";
+
+    // used for TC description
+    char TCtitle[STR_LEN];
+    char TCidentifier[STR_LEN];
+    char TCdescription[STR_LEN];
+
+    int gCurrError;
+    const ERR_LENGTH = 1024;
+    const MAX_NUMBER_OF_ERRORS = 100;
+    char gStepErrorDesc[MAX_NUMBER_OF_ERRORS][ERR_LENGTH];
+}
+
+
+testfunction testEnvPreparation(int variant)
+{
+    /*
+      initial setup for each execution of test environment.
+        - PSU setup
+        - VTsystem config
+        - ...
+    */
+    write("Start: testEnvPreparation()");
+    @sysvar::UsrTestEnv::PSU_Voltage = 15;
+    testWaitForSysVar(sysvar::UsrTestEnv::PSU_Voltage, 5000);
+    write("Variant %u\r\n", variant);
+    switch (variant)
+    {
+    default:
+        break;
+    }
+    @sysvar::IL::Klemme15 = 1;
+    testWaitForSysVar(sysvar::IL::Klemme15, 5000);
+    testWaitForTimeoutSilent(1000);
+    write("Supply voltage: %gV\r\n", @sysvar::UsrTestEnv::PSU_Voltage);
+    write("End: testEnvPreparation()");
+}
+
+testfunction testEnvCleanup()
+{
+    write("Start: testEnvCleanup()");
+    @sysvar::UsrTestEnv::PSU_Voltage = 0;
+    @sysvar::IL::Klemme15 = 0;
+    testWaitForSysVar(sysvar::UsrTestEnv::PSU_Voltage, 5000);
+    testWaitForSysVar(sysvar::IL::Klemme15, 5000);
+    testWaitForTimeoutSilent(1000);
+
+    write("End: testEnvCleanup()");
+}
+
+/// <TC_helpers>
+void tcPreRun()
+{
+    // setup initial state Communication bus signal condition
+    // ...
+
+    // setup logging file for current test case execution session
+    loggingBlockFileName(TCidentifier);
+
+    testWaitForTimeoutSilent(500);
+    write("Start TC: %s %s", TCidentifier, TCtitle);
+}
+
+/// <TC_helpers>
+void tcPostRun()
+{
+    // clean up after test case execution, befor move to next testcase
+    // ...
+
+    testWaitForTimeoutSilent(1000);
+    write("End TC: %s %s", TCidentifier, TCtitle);
+}
+
+/// <TC_helpers>
+int nextTestStep(char operation[], char expectedResult[])
+{
+    gCurrTestStep++;
+
+    return setTestStep(gCurrTestStep, operation, expectedResult);
+}
+/// <TC_helpers>
+int setTestStep(int step, char operation[], char expectedResult[])
+{
+    char str[10];
+
+    gCurrTestStep = step;
+
+    snprintf(str, elCount(str), "%d", step);
+    return newTestStep(str, operation, expectedResult);
+}
+/// <TC_helpers>
+int newTestStep(char testStepName[], char operation[], char expectedResult[])
+{
+    char str[STR_LEN + STR_LEN + 2];
+
+    snprintf(str, elcount(str), "Operation: %s\n\nExpected: %s", operation, expectedResult);
+
+    TestStep(testStepName, str);
+    gCurrError = 0;
+    return 1;
+}
+/// <TC_helpers>
+void setStepError(char error[])
+{
+    /*
+      Add error to errors array, errors are written to output and to testreport in setResult
+    */
+    if (gCurrError < MAX_NUMBER_OF_ERRORS)
+    {
+        strncpy(gStepErrorDesc[gCurrError], error, elcount(gStepErrorDesc[gCurrError]));
+        testStepFail("Error", "%d: %s", gCurrError, gStepErrorDesc[gCurrError]);
+        loggingBlockTrigger();
+        gCurrError++;
+    }
+    else
+    {
+        writeLineEx(0, 3, "Maximum number of test step errors reached");
+    }
+}
+/// <TC_helpers>
+void ErrorCode2Str(long errCode, char str[])
+{
+    /*
+     * Translate a diagnostic negative response code to a string.
+     */
+    switch (errCode)
+    {
+    case 0:
+        strncpy(str, "No error, success. (0)", elCount(str));
+        break;
+    case -100:
+        strncpy(str, "The input provided on function call is not consistent or sufficient. (-100)", elCount(str));
+        break;
+    case -99:
+        strncpy(str, "The object s response is pending, therefore cannot delete it. (-99)", elCount(str));
+        break;
+    case -98:
+        strncpy(str, "The handle is not assigned to a diagnostic object. Invalid diagnostic object handle encountered! No diagnostic description for ECU qualifier found! (-98)", elCount(str));
+        break;
+    case -97:
+        strncpy(str, "The parameter does not exist in this object, or is constant. Parameter not found or has wrong type! Parameter is declared constant! Error accessing complex parameter:, sub-parameter not found or constant. (-97)", elCount(str));
+        break;
+    case -96:
+        strncpy(str, "Function not implemented yet. (-96)", elCount(str));
+        break;
+    case -95:
+        strncpy(str, "Accessing CANdelaLib lead to error for Parameter or object not defined!Value conversion for parameter failed (-95)", elCount(str));
+        break;
+    case -94:
+        strncpy(str, "Diagnostics was not initialized for the node, i.e. no SetEcu/Target called. Diagnostics not initialized! A tester must call diagSetTarget() e.g. Network request interface not found! (-94)", elCount(str));
+        break;
+    case -93:
+        strncpy(str, "The specified callback was not found. (-93)", elCount(str));
+        break;
+    case -92:
+        strncpy(str, "There was an error on TP level. (-92)", elCount(str));
+        break;
+    case -91:
+        strncpy(str, "Only one request/response can be sent at a time! (-91)", elCount(str));
+        break;
+    case -89:
+        strncpy(str, "No seed and key library was specified. (-89)", elCount(str));
+        break;
+    case -88:
+        strncpy(str, "The Seed & Key library did not contain a matching Seed & Key function. (-88)", elCount(str));
+        break;
+    case -87:
+        strncpy(str, "The seed and key library couldn t be loaded. (-87)", elCount(str));
+        break;
+    case -86:
+        strncpy(str, "The buffer was too small. (-86)", elCount(str));
+        break;
+    case -85:
+        strncpy(str, "The seed array size is too large. (-85)", elCount(str));
+        break;
+    case -84:
+        strncpy(str, "The security level is invalid. (-84)", elCount(str));
+        break;
+    case -83:
+        strncpy(str, "The variant is invalid. (-83)", elCount(str));
+        break;
+    case -82:
+        strncpy(str, "An unspecified error occurred. (-82)", elCount(str));
+        break;
+    case -81:
+        strncpy(str, "The function cannot perform the action because of wrong HW, e.g. K-Line interface required instead of a serial port. (-81)", elCount(str));
+        break;
+    case -80:
+        strncpy(str, "No matching request was found to perform the action. (-80)", elCount(str));
+        break;
+    case -79:
+        strncpy(str, "No diagnostic channel found. (-79)", elCount(str));
+        break;
+    case -78:
+        strncpy(str, "No suitable class or request was found. (-78)", elCount(str));
+        break;
+    case -77:
+        strncpy(str, "A time out happened. (-77)", elCount(str));
+        break;
+    case -76:
+        strncpy(str, "Transmission failed. (-76)", elCount(str));
+        break;
+    case -75:
+        strncpy(str, "The class was not found in the diagnostic description. (-75)", elCount(str));
+        break;
+    case -74:
+        strncpy(str, "Creation of the PDU bytes for a diagnostic object failed! Parameters without defaults may have to be set, e.g. (-74)", elCount(str));
+        break;
+    case -73:
+        strncpy(str, "During processing a negative response was received. (-73)", elCount(str));
+        break;
+    case -72:
+        strncpy(str, "No key could be calculated. (-72)", elCount(str));
+        break;
+    case -71:
+        strncpy(str, "The key was not accepted. (-71)", elCount(str));
+        break;
+    case -70:
+        strncpy(str, "The diagnostic object is too small. (-70)", elCount(str));
+        break;
+    case -199:
+        strncpy(str, "Authentication rejected (-199)", elCount(str));
+        break;
+    case -198:
+        strncpy(str, "Authentication tool is not properly configured, i.e. security manager not available or channel not ready (-198)", elCount(str));
+        break;
+    case -197:
+        strncpy(str, "This mode is not implemented (-197)", elCount(str));
+        break;
+    case -196:
+        strncpy(str, "Invalid handle (-196)", elCount(str));
+        break;
+    case -195:
+        strncpy(str, "Error in security source (-195)", elCount(str));
+        break;
+    case -194:
+        strncpy(str, "Security not usable (-194)", elCount(str));
+        break;
+    case -193:
+        strncpy(str, "Data missing (-193)", elCount(str));
+        break;
+    case -192:
+        strncpy(str, "Signal length mismatch (-192)", elCount(str));
+        break;
+    case -191:
+        strncpy(str, "General error (-191)", elCount(str));
+        break;
+    default:
+        if (errCode > 0)
+            snprintf(str, elCount(str), "Number, e.g. length of the given text. (%d)", errCode);
+        else
+            snprintf(str, elCount(str), "Error (%d) not in list", errCode);
+        break;
+    }
+}
+
+void NRCToString(long nrc, char str[])
+{
+    /*
+     * Translate a negative response code to a string.
+     * According to ISO 14299:2006
+     */
+    switch (nrc)
+    {
+    case 0x00:
+        strncpy(str, "positiveResponse (00)", elCount(str));
+        break;
+    case 0x10:
+        strncpy(str, "generalReject (10)", elCount(str));
+        break;
+    case 0x11:
+        strncpy(str, "serviceNotSupported (11)", elCount(str));
+        break;
+    case 0x12:
+        strncpy(str, "subFunctionNotSupported (12)", elCount(str));
+        break;
+    case 0x13:
+        strncpy(str, "incorrectMessageLengthOrInvalidFormat (13)", elCount(str));
+        break;
+    case 0x14:
+        strncpy(str, "responseTooLong (14)", elCount(str));
+        break;
+    case 0x21:
+        strncpy(str, "busyRepeatRequest (21)", elCount(str));
+        break;
+    case 0x22:
+        strncpy(str, "conditionsNotCorrect (22)", elCount(str));
+        break;
+    case 0x24:
+        strncpy(str, "requestSequenceError (24)", elCount(str));
+        break;
+    case 0x25:
+        strncpy(str, "noResponseFromSubnetComponent (25)", elCount(str));
+        break;
+    case 0x26:
+        strncpy(str, "failurePreventsExecutionOfRequestedAction (26)", elCount(str));
+        break;
+    case 0x31:
+        strncpy(str, "requestOutOfRange (31)", elCount(str));
+        break;
+    case 0x33:
+        strncpy(str, "securityAccessDenied (33)", elCount(str));
+        break;
+    case 0x35:
+        strncpy(str, "invalidKey (35)", elCount(str));
+        break;
+    case 0x36:
+        strncpy(str, "exceedNumberOfAttempts (36)", elCount(str));
+        break;
+    case 0x37:
+        strncpy(str, "requiredTimeDelayNotExpired (37)", elCount(str));
+        break;
+    case 0x70:
+        strncpy(str, "uploadDownloadNotAccepted (70)", elCount(str));
+        break;
+    case 0x71:
+        strncpy(str, "transferDataSuspended (71)", elCount(str));
+        break;
+    case 0x72:
+        strncpy(str, "generalProgrammingFailure (72)", elCount(str));
+        break;
+    case 0x73:
+        strncpy(str, "wrongBlockSequenceCounter (73)", elCount(str));
+        break;
+    case 0x78:
+        strncpy(str, "requestCorrectlyReceived-ResponsePending (78)", elCount(str));
+        break;
+    case 0x7E:
+        strncpy(str, "subFunctionNotSupportedInActiveSession (7E)", elCount(str));
+        break;
+    case 0x7F:
+        strncpy(str, "serviceNotSupportedInActiveSession (7F)", elCount(str));
+        break;
+    case 0x81:
+        strncpy(str, "rpmTooHigh (81)", elCount(str));
+        break;
+    case 0x82:
+        strncpy(str, "rpmTooLow (82)", elCount(str));
+        break;
+    case 0x83:
+        strncpy(str, "engineIsRunning (83)", elCount(str));
+        break;
+    case 0x84:
+        strncpy(str, "engineIsNotRunning (84)", elCount(str));
+        break;
+    case 0x85:
+        strncpy(str, "engineRunTimeTooLow (85)", elCount(str));
+        break;
+    case 0x86:
+        strncpy(str, "temperatureTooHigh (86)", elCount(str));
+        break;
+    case 0x87:
+        strncpy(str, "temperatureTooLow (87)", elCount(str));
+        break;
+    case 0x88:
+        strncpy(str, "vehicleSpeedTooHigh (88)", elCount(str));
+        break;
+    case 0x89:
+        strncpy(str, "vehicleSpeedTooLow (89)", elCount(str));
+        break;
+    case 0x8A:
+        strncpy(str, "throttle/PedalTooHigh (8A)", elCount(str));
+        break;
+    case 0x8B:
+        strncpy(str, "throttle/PedalTooLow (8B)", elCount(str));
+        break;
+    case 0x8D:
+        strncpy(str, "transmissionRangeNotInGear (8D)", elCount(str));
+        break;
+    case 0x8F:
+        strncpy(str, "brakeSwitch(es)NotClosed (8F)", elCount(str));
+        break;
+    case 0x90:
+        strncpy(str, "shifterLeverNotInPark (90)", elCount(str));
+        break;
+    case 0x91:
+        strncpy(str, "torqueConverterClutchLocked (91)", elCount(str));
+        break;
+    case 0x92:
+        strncpy(str, "voltageTooHigh (92)", elCount(str));
+        break;
+    case 0x93:
+        strncpy(str, "voltageTooLow (93)", elCount(str));
+        break;
+    default:
+        if (nrc >= 0x38 && nrc <= 0x4F)
+            snprintf(str, elCount(str), "reservedByExtendedDataLinkSecurityDocument (%02X)", nrc);
+        if (nrc >= 0x94 && nrc <= 0xFE)
+            snprintf(str, elCount(str), "reservedForSpecificConditionsNotCorrect (%02X)", nrc);
+        else
+            snprintf(str, elCount(str), "ISOSAEReserved (%02X)", nrc);
+        break;
+    }
+}
+
+void loggingBlockTrigger(long preTriggerTime, long postTriggerTime)
+{
+    startLogging("Logging", preTriggerTime);
+    writeEx(-3, 0, "Logging Block triggered!");
+    stopLogging("Logging", postTriggerTime);
+}
+/// <Logging_block_helpers>
+void loggingBlockTrigger()
+{
+    // save logs 20 seconds before and 500 ms after the trigger
+    loggingBlockTrigger(20000, 500);
+}
+/// <Logging_block_helpers>
+void loggingBlockFileName(char name[])
+{
+    char fileName[STR_LEN];
+    snprintf(fileName, elCount(fileName), "%s{Date}_{Time}_{LoggingBlock}_%s.blf", gLogDir, name);
+    setLogFileName("Logging", fileName);
+}
+/// <TC_helpers>
+void precondition(char str[])
+{
+    TestReportAddExtendedInfo("preconditions", str);
+}
+/// <TC_helpers>
+void environment(char str[])
+{
+    TestReportAddExtendedInfo("environment", str);
+}
+/// <TC_helpers>
+void traceability(char str[])
+{
+    TestReportAddExtendedInfo("traceability", str);
+}
+/// <TC_helpers>
+void tcSetup(char identifier[], char title[])
+{
+    gCurrTestStep = 0;
+
+    snprintf(TCidentifier, elcount(TCidentifier), "%s", identifier);
+    snprintf(TCtitle, elcount(TCtitle), "%s", title);
+
+    TestCaseTitle(identifier, title);
+}
+/// <TC_helpers>
+void tcDescription(char description[])
+{
+    snprintf(TCdescription, elcount(TCdescription), "%s", description);
+    TestCaseDescription(description);
+}

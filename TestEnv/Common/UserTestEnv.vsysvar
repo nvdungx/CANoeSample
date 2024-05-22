@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="UsrTestEnv" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="V" name="PSU_Voltage" comment="Test setup power supply voltage" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="14" minValue="10" maxValue="18" />
+    </namespace>
+  </namespace>
+</systemvariables>
